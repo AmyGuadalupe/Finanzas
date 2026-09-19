@@ -52,7 +52,11 @@ Se plantea el modelo **y = f(x₁, x₂, x₃, x₄)**, donde:
 ## Fuente de datos
 
 Banco Central de Reserva del Perú (BCRP) — API pública de series estadísticas
-(no requiere clave de acceso): https://estadisticas.bcrp.gob.pe/estadisticas/series/
+(no requiere clave de acceso):
+https://estadisticas.bcrp.gob.pe/estadisticas/series/mensuales/resultados/PN07848NM/html
+https://estadisticas.bcrp.gob.pe/estadisticas/series/mensuales/resultados/PD04722MM/html
+https://estadisticas.bcrp.gob.pe/estadisticas/series/mensuales/resultados/PN01215PM/html
+https://estadisticas.bcrp.gob.pe/estadisticas/series/mensuales/resultados/PN01273PM/html
 
 | Variable | Código BCRP |
 |---|---|
