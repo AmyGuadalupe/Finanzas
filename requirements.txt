@@ -1,0 +1,7 @@
+# Librerías del proyecto (versión provisional).
+# Al final se reemplaza por las versiones exactas instaladas (numeral 2.4.2).
+requests
+pandas
+numpy
+statsmodels
+matplotlib
