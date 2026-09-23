@@ -1,0 +1,27 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           d_vp_credito   R-squared:                       0.213
+Model:                            OLS   Adj. R-squared:                  0.211
+Method:                 Least Squares   F-statistic:                     87.59
+Date:                Wed, 23 Sep 2026   Prob (F-statistic):           6.82e-52
+Time:                        08:23:09   Log-Likelihood:                -11996.
+No. Observations:                1387   AIC:                         2.400e+04
+Df Residuals:                    1383   BIC:                         2.402e+04
+Df Model:                           3                                         
+Covariance Type:                  HAC                                         
+=====================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const                21.4557     37.169      0.577      0.564     -51.395      94.306
+d_tasa_referencia -1178.7020    699.181     -1.686      0.092   -2549.072     191.668
+d_rend_bono10_usa -8334.5063    717.168    -11.621      0.000   -9740.130   -6928.883
+d_tipo_cambio     -2.976e+04   3456.752     -8.609      0.000   -3.65e+04    -2.3e+04
+==============================================================================
+Omnibus:                       90.215   Durbin-Watson:                   1.786
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              390.052
+Skew:                           0.068   Prob(JB):                     2.00e-85
+Kurtosis:                       5.594   Cond. No.                         69.4
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 7 lags and without small sample correction

@@ -1,0 +1,28 @@
+modelo,variable,coeficiente,error_estandar_HAC,t,p_valor,elasticidad_en_medias
+Modelo 1 (niveles),const,300899.027346,9496.176705,31.686334,0.0,
+Modelo 1 (niveles),tasa_referencia,2234.782254,211.057577,10.588496,0.0,0.034368
+Modelo 1 (niveles),rend_bono10_usa,-6937.866511,595.220198,-11.655966,0.0,-0.079042
+Modelo 1 (niveles),tipo_cambio,4847.130769,2160.800486,2.243211,0.024883,0.059055
+Modelo 1 (niveles),R2,0.667996,,,,
+Modelo 1 (niveles),R2_ajustado,0.667276,,,,
+Modelo 1 (niveles),Durbin_Watson,0.141893,,,,
+Modelo 1 (niveles),n_observaciones,1388.0,,,,
+Modelo 1 (niveles),rezagos_Newey_West,7.0,,,,
+"Modelo 2 (cambios, winsorizados)",const,21.455654,37.169204,0.577243,0.563775,
+"Modelo 2 (cambios, winsorizados)",d_tasa_referencia,-1178.702023,699.181099,-1.685832,0.091828,
+"Modelo 2 (cambios, winsorizados)",d_rend_bono10_usa,-8334.506255,717.167973,-11.621414,0.0,
+"Modelo 2 (cambios, winsorizados)",d_tipo_cambio,-29759.354146,3456.752034,-8.609051,0.0,
+"Modelo 2 (cambios, winsorizados)",R2,0.212558,,,,
+"Modelo 2 (cambios, winsorizados)",R2_ajustado,0.21085,,,,
+"Modelo 2 (cambios, winsorizados)",Durbin_Watson,1.786011,,,,
+"Modelo 2 (cambios, winsorizados)",n_observaciones,1387.0,,,,
+"Modelo 2 (cambios, winsorizados)",rezagos_Newey_West,7.0,,,,
+"Modelo 3 (cambios, sin tratar)",const,13.847222,37.576054,0.368512,0.712492,
+"Modelo 3 (cambios, sin tratar)",d_tasa_referencia,-1238.497565,697.08782,-1.776674,0.075622,
+"Modelo 3 (cambios, sin tratar)",d_rend_bono10_usa,-8188.524762,750.935584,-10.90443,0.0,
+"Modelo 3 (cambios, sin tratar)",d_tipo_cambio,-34266.392116,6586.849247,-5.202243,0.0,
+"Modelo 3 (cambios, sin tratar)",R2,0.216715,,,,
+"Modelo 3 (cambios, sin tratar)",R2_ajustado,0.215016,,,,
+"Modelo 3 (cambios, sin tratar)",Durbin_Watson,1.905546,,,,
+"Modelo 3 (cambios, sin tratar)",n_observaciones,1387.0,,,,
+"Modelo 3 (cambios, sin tratar)",rezagos_Newey_West,7.0,,,,

@@ -21,3 +21,55 @@
 2026-09-23 07:46:37 | 03_limpieza | Base procesada: datos_procesados/datos_procesados_2024200501G.csv | 1366 filas x 6 columnas
 2026-09-23 07:46:37 | 03_limpieza | SHA-256: ab5c3811b9a55a3937142dc66ff5a4c1539541daf9946e80d60d77a58962ec49
 2026-09-23 07:46:37 | 03_limpieza | === Fin de limpieza ===
+2026-09-23 08:22:37 | === Inicio de extracción | ventana 2021-01-04 a 2026-08-31 ===
+2026-09-23 08:22:38 | GET PN07848NM (tea_hipotecaria_pen) | HTTP 200 | filas=68 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07848NM/json/2021-1/2026-8/esp
+2026-09-23 08:22:41 | GET PD31893DD (rend_bono10_pen) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD31893DD/json/2021-1-4/2026-8-31/esp
+2026-09-23 08:22:43 | GET PD12301MD (tasa_referencia) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD12301MD/json/2021-1-4/2026-8-31/esp
+2026-09-23 08:22:46 | GET PD04719XD (rend_bono10_usa) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04719XD/json/2021-1-4/2026-8-31/esp
+2026-09-23 08:22:49 | GET PD04640PD (tipo_cambio) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04640PD/json/2021-1-4/2026-8-31/esp
+2026-09-23 08:22:51 | Archivo crudo guardado: datos_crudos/datos_crudos_2024200501G.csv | filas totales=5972
+2026-09-23 08:22:51 |    rend_bono10_pen: 1476 filas
+2026-09-23 08:22:51 |    rend_bono10_usa: 1476 filas
+2026-09-23 08:22:51 |    tasa_referencia: 1476 filas
+2026-09-23 08:22:51 |    tea_hipotecaria_pen: 68 filas
+2026-09-23 08:22:51 |    tipo_cambio: 1476 filas
+2026-09-23 08:22:51 | === Fin de extracción ===
+2026-09-23 08:22:52 | 02_scraping | === Inicio del intento de rastreo SBS ===
+2026-09-23 08:22:53 | 02_scraping | GET https://www.sbs.gob.pe/robots.txt | HTTP 200 | 4136 caracteres
+2026-09-23 08:22:58 | 02_scraping | GET https://www.sbs.gob.pe/app/pp/EstadisticasSAEEPortal/Paginas/TIActivaTipoCreditoEmpresa.aspx?tip=B | HTTP 200 | 486125 caracteres
+2026-09-23 08:22:58 | 02_scraping | Diagnóstico: El portal responde, pero es una aplicación ASP.NET con formulario dinámico: solo muestra el reporte de la fecha consultada y no ofrece una serie histórica descargable, por lo que no es viable construir con él una serie comparable.
+2026-09-23 08:22:58 | 02_scraping | Incidencia registrada en incidencias_fuente.md
+2026-09-23 08:22:58 | 02_scraping | === Fin del intento de rastreo SBS ===
+2026-09-23 08:22:59 | 03_limpieza | === Inicio de limpieza ===
+2026-09-23 08:22:59 | 03_limpieza | Crudo leído: 5972 filas | crédito: S/ 300,000 a 240 meses
+2026-09-23 08:22:59 | 03_limpieza | Días: 1476 | con 'n.d.' (eliminados): 88 | completos: 1388
+2026-09-23 08:22:59 | 03_limpieza | TEA pactada (2021-01) = 7.3839% | cuota = S/ 2,352.12
+2026-09-23 08:22:59 | 03_limpieza | Atípicos en cambio de vp_credito: leves=75 (se conservan) | extremos=12 (winsorizados a [-5416.6905, 5430.8729])
+2026-09-23 08:22:59 | 03_limpieza | Atípicos en cambio de rend_bono10_usa: leves=35 (se conservan) | extremos=2 (winsorizados a [-0.2550, 0.2630])
+2026-09-23 08:22:59 | 03_limpieza | Atípicos en cambio de tipo_cambio: leves=54 (se conservan) | extremos=16 (winsorizados a [-0.0530, 0.0520])
+2026-09-23 08:22:59 | 03_limpieza | Días con al menos un atípico extremo: 27 (se conservan, marcados)
+2026-09-23 08:22:59 | 03_limpieza | Base procesada: datos_procesados/datos_procesados_2024200501G.csv | 1388 filas x 16 columnas
+2026-09-23 08:22:59 | 03_limpieza | SHA-256: d6df8261ae279d529f9c2aad04b89072bbc773ff99460ac565986005fca54133
+2026-09-23 08:22:59 | 03_limpieza | === Fin de limpieza ===
+2026-09-23 08:23:07 | 04_analisis | === Inicio del análisis ===
+2026-09-23 08:23:07 | 04_analisis | Base: 1388 filas | crédito S/ 300,000, 240 meses, cuota S/ 2,352.12
+2026-09-23 08:23:07 | 04_analisis | Tabla guardada: salidas/tabla1_descriptivos.csv
+2026-09-23 08:23:07 | 04_analisis | Tabla guardada: salidas/tabla2_correlaciones.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla3_estacionariedad_adf.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla4_vif.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla5_regresiones.csv
+2026-09-23 08:23:09 | 04_analisis | Modelo 1: R2=0.6680, DW=0.142 | Modelo 2: R2=0.2126, DW=1.786 | Modelo 3: R2=0.2167
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla6_sensibilidad_al_corte.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla7_escenarios.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla8_plazos.csv
+2026-09-23 08:23:09 | 04_analisis | Tabla guardada: salidas/tabla9_atipicos_resumen.csv
+2026-09-23 08:23:10 | 04_analisis | Figura guardada: salidas/figura1_valor_presente_tiempo.png
+2026-09-23 08:23:10 | 04_analisis | Figura guardada: salidas/figura2_tasas_interes.png
+2026-09-23 08:23:11 | 04_analisis | Figura guardada: salidas/figura3_boxplot_atipicos.png
+2026-09-23 08:23:12 | 04_analisis | Figura guardada: salidas/figura4_dispersion_y_x.png
+2026-09-23 08:23:13 | 04_analisis | Figura guardada: salidas/figura5_curva_sensibilidad.png
+2026-09-23 08:23:13 | 04_analisis | Figura guardada: salidas/figura6_escenarios.png
+2026-09-23 08:23:14 | 04_analisis | Figura guardada: salidas/figura7_plazos.png
+2026-09-23 08:23:15 | 04_analisis | Figura guardada: salidas/figura8_duracion_elasticidad_tiempo.png
+2026-09-23 08:23:15 | 04_analisis | Al corte 2026-08-31: VP=S/ 295,479.70 | D.mod=7.142 | elasticidad=-0.5425
+2026-09-23 08:23:15 | 04_analisis | === Fin del análisis ===

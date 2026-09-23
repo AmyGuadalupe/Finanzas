@@ -1,0 +1,9 @@
+variable,forma,estadistico_ADF,p_valor,conclusion
+vp_credito,nivel,-1.3533,0.6045,no estacionaria (raíz unitaria)
+vp_credito,cambio diario,-12.4581,0.0,estacionaria
+tasa_referencia,nivel,-2.1487,0.2254,no estacionaria (raíz unitaria)
+tasa_referencia,cambio diario,-2.8165,0.056,no estacionaria (raíz unitaria)
+rend_bono10_usa,nivel,-1.8493,0.3563,no estacionaria (raíz unitaria)
+rend_bono10_usa,cambio diario,-28.8977,0.0,estacionaria
+tipo_cambio,nivel,-1.3018,0.6284,no estacionaria (raíz unitaria)
+tipo_cambio,cambio diario,-25.0454,0.0,estacionaria

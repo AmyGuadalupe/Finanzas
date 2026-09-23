@@ -1,0 +1,4 @@
+variable,Q1,Q3,IQR,atipicos_leves,atipicos_extremos,limite_inferior_extremo,limite_superior_extremo
+vp_credito,-767.74,781.92,1549.66,75,12,-5416.72,5430.9
+rend_bono10_usa,-0.033,0.041,0.074,35,2,-0.255,0.263
+tipo_cambio,-0.008,0.007,0.015,54,16,-0.053,0.052

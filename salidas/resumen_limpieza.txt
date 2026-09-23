@@ -1,10 +1,8 @@
 RESUMEN DE LIMPIEZA
 Días en el crudo (series diarias): 1476
-Días eliminados por 'n.d.': 88
-Días eliminados por atípicos (IQR x 3.0): 22
-Filas finales de la base procesada: 1366
+Días eliminados por 'n.d.' (feriados): 88
+Filas finales de la base procesada: 1388
 Periodo: 2021-01-04 a 2026-08-31
-Límites IQR del cambio diario:
-  rend_bono10_pen: [-0.2800, 0.2800]
-  rend_bono10_usa: [-0.2550, 0.2630]
-  tipo_cambio: [-0.0530, 0.0520]
+Crédito representativo: S/ 300,000 a 240 meses | TEA pactada (2021-01): 7.3839% | cuota: S/ 2,352.12
+Máxima diferencia entre el promedio mensual de la TEA diaria y la TEA oficial: 0.1478 p.p.
+Días con atípico extremo (marcados y winsorizados, no eliminados): 27
