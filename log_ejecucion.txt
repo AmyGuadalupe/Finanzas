@@ -1,0 +1,13 @@
+2026-09-23 07:24:20 | === Inicio de extracción | ventana 2021-01-04 a 2026-08-31 ===
+2026-09-23 07:24:21 | GET PN07848NM (tea_hipotecaria_pen) | HTTP 200 | filas=68 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07848NM/json/2021-1/2026-8/esp
+2026-09-23 07:24:23 | GET PD31893DD (rend_bono10_pen) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD31893DD/json/2021-1-4/2026-8-31/esp
+2026-09-23 07:24:26 | GET PD12301MD (tasa_referencia) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD12301MD/json/2021-1-4/2026-8-31/esp
+2026-09-23 07:24:29 | GET PD04719XD (rend_bono10_usa) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04719XD/json/2021-1-4/2026-8-31/esp
+2026-09-23 07:24:31 | GET PD04640PD (tipo_cambio) | HTTP 200 | filas=1476 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04640PD/json/2021-1-4/2026-8-31/esp
+2026-09-23 07:24:32 | Archivo crudo guardado: datos_crudos/datos_crudos_2024200501G.csv | filas totales=5972
+2026-09-23 07:24:32 |    rend_bono10_pen: 1476 filas
+2026-09-23 07:24:32 |    rend_bono10_usa: 1476 filas
+2026-09-23 07:24:32 |    tasa_referencia: 1476 filas
+2026-09-23 07:24:32 |    tea_hipotecaria_pen: 68 filas
+2026-09-23 07:24:32 |    tipo_cambio: 1476 filas
+2026-09-23 07:24:32 | === Fin de extracción ===
