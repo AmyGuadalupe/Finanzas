@@ -1,0 +1,10 @@
+RESUMEN DE LIMPIEZA
+Días en el crudo (series diarias): 1476
+Días eliminados por 'n.d.': 88
+Días eliminados por atípicos (IQR x 3.0): 22
+Filas finales de la base procesada: 1366
+Periodo: 2021-01-04 a 2026-08-31
+Límites IQR del cambio diario:
+  rend_bono10_pen: [-0.2800, 0.2800]
+  rend_bono10_usa: [-0.2550, 0.2630]
+  tipo_cambio: [-0.0530, 0.0520]

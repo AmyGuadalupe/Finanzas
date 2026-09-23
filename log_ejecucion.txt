@@ -11,3 +11,13 @@
 2026-09-23 07:24:32 |    tea_hipotecaria_pen: 68 filas
 2026-09-23 07:24:32 |    tipo_cambio: 1476 filas
 2026-09-23 07:24:32 | === Fin de extracción ===
+2026-09-23 07:46:36 | 03_limpieza | === Inicio de limpieza ===
+2026-09-23 07:46:36 | 03_limpieza | Crudo leído: 5972 filas
+2026-09-23 07:46:36 | 03_limpieza | Días diarios: 1476 | con 'n.d.': 88 | completos: 1388
+2026-09-23 07:46:36 | 03_limpieza | IQR rend_bono10_pen: límites del cambio diario [-0.2800, 0.2800] | atípicos: 7
+2026-09-23 07:46:36 | 03_limpieza | IQR rend_bono10_usa: límites del cambio diario [-0.2550, 0.2630] | atípicos: 2
+2026-09-23 07:46:36 | 03_limpieza | IQR tipo_cambio: límites del cambio diario [-0.0530, 0.0520] | atípicos: 16
+2026-09-23 07:46:36 | 03_limpieza | Días eliminados por atípicos: 22 | quedan: 1366
+2026-09-23 07:46:37 | 03_limpieza | Base procesada: datos_procesados/datos_procesados_2024200501G.csv | 1366 filas x 6 columnas
+2026-09-23 07:46:37 | 03_limpieza | SHA-256: ab5c3811b9a55a3937142dc66ff5a4c1539541daf9946e80d60d77a58962ec49
+2026-09-23 07:46:37 | 03_limpieza | === Fin de limpieza ===
