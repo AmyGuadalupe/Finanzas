@@ -31,19 +31,24 @@ Vía de extracción: **API REST de BCRPData** (Banco Central de Reserva del Per�
   https://www.gob.pe/33425-programa-nuevo-credito-mivivienda). Se registra como columnas constantes en el crudo.
 - **Segunda vía (SBS):** intento documentado en `incidencias_fuente.md`; no aporta datos (opcional en la Unidad I).
 
-## Estructura
+## Estructura del repositorio
+
+El repositorio sigue el numeral 2.5 de la consigna: tres carpetas con el nombre completo de la autora.
 
 ```
-codigo/            01_extraccion_api.py · 02_scraping_web.py · 03_limpieza_datos.py · 04_analisis.py
-datos_crudos/      datos_crudos_2024200501G.csv · json/ (respuestas originales de la API) · sbs/
-datos_procesados/  datos_procesados_2024200501G.csv (2260 filas × 17 columnas)
-salidas/           tablas (CSV), regresiones (TXT) y figuras (PNG) del artículo
-diccionario_variables.md · fundamento_metodologico.md · README.md · requirements.txt · .env.example · log_ejecucion.txt · hash_sha256.txt · incidencias_fuente.md
+1_Productos_Amy_Pamela_Guadalupe_Cordova/               artículo, Beamer, póster y pósteres (PDF); artículos Q1-Q2 y traducciones
+2_Desarrollo_Amy_Pamela_Guadalupe_Cordova/              templates (.tex) del journal, del póster, del Beamer y de los pósteres
+3_Base_de_datos_y_codigo_Amy_Pamela_Guadalupe_Cordova/  (esta carpeta)
+    codigo/            01_extraccion_api.py · 02_scraping_web.py · 03_limpieza_datos.py · 04_analisis.py · 05_verificacion_fuente.py
+    datos_crudos/      datos_crudos_2024200501G.csv · json/ (respuestas originales de la API) · sbs/
+    datos_procesados/  datos_procesados_2024200501G.csv (2260 filas × 17 columnas)
+    salidas/           tablas (CSV), regresiones (TXT), figuras (PNG) e informe de verificación
+    diccionario_variables.md · fundamento_metodologico.md · README.md · requirements.txt · .env.example · log_ejecucion.txt · hash_sha256.txt · incidencias_fuente.md
 ```
 
 ## Orden de ejecución
 
-Desde la carpeta raíz del proyecto:
+Desde esta carpeta (`3_Base_de_datos_y_codigo_Amy_Pamela_Guadalupe_Cordova`):
 
 ```
 pip install -r requirements.txt
@@ -51,10 +56,11 @@ python codigo/01_extraccion_api.py
 python codigo/02_scraping_web.py
 python codigo/03_limpieza_datos.py
 python codigo/04_analisis.py
+python codigo/05_verificacion_fuente.py
 ```
 
-Los scripts usan rutas relativas a la carpeta del proyecto. El cuaderno `00_pipeline_colab.ipynb` ejecuta
-la misma secuencia en Google Colab (allí la carpeta del proyecto es `/content/Finanzas`).
+Los scripts usan rutas relativas a esta carpeta, por lo que funcionan en cualquier computadora. El cuaderno
+`00_pipeline_colab.ipynb` ejecuta la misma secuencia en Google Colab.
 
 ## Versiones
 
@@ -74,6 +80,15 @@ SHA-256 de `datos_procesados/datos_procesados_2024200501G.csv`:
 ```
 63728e28983100f5e129622c0fda119deba6504ef2874a7cd75b83c2f9b1736e
 ```
+
+## Verificación contra la fuente
+
+`codigo/05_verificacion_fuente.py` vuelve a consultar la API del BCRP en vivo y coteja celda por celda el
+archivo crudo y el procesado, recalcula las variables calculadas y toma una muestra al azar de 10 filas
+(semilla 501, últimos cuatro dígitos de la matrícula) con el enlace para cotejarlas en el navegador.
+Informe completo: [`salidas/verificacion_fuente.md`](salidas/verificacion_fuente.md).
+
+Último resultado: **APROBADO: todos los datos extraídos coinciden con la fuente oficial (BCRPData).**
 
 ## Resumen de la limpieza
 
@@ -100,7 +115,7 @@ El respaldo bibliográfico de cada método (autor que lo propone y referencias e
   (1.5 IQR) se conservan; los extremos (3 IQR) se marcan en la columna `atipico` y su cambio diario se
   winsoriza. Los niveles publicados por el BCRP no se modifican.
 - `vp_credito` y `tea_hipotecaria_diaria` son variables **calculadas** (ver fórmulas en el diccionario).
-- Regresiones por MCO con errores estándar HAC (Newey-West). El estudio no usa procesos aleatorios, por lo
-  que no requiere semilla.
+- Regresiones por MCO con errores estándar HAC (Newey-West). La única selección aleatoria del proyecto es la
+  muestra de cotejo del script 05, con semilla 501 (últimos cuatro dígitos de la matrícula: 0501).
 - Uso de IA: se utilizó un asistente de IA (Claude, Anthropic) como apoyo para escribir y depurar el código;
   la autora revisó, ejecutó y es responsable de todo el contenido.

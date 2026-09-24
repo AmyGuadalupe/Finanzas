@@ -4,7 +4,7 @@ Dep. Variable:           d_vp_credito   R-squared:                       0.177
 Model:                            OLS   Adj. R-squared:                  0.175
 Method:                 Least Squares   F-statistic:                     107.7
 Date:                Thu, 24 Sep 2026   Prob (F-statistic):           3.60e-65
-Time:                        00:43:21   Log-Likelihood:                -19476.
+Time:                        23:01:20   Log-Likelihood:                -19476.
 No. Observations:                2259   AIC:                         3.896e+04
 Df Residuals:                    2255   BIC:                         3.898e+04
 Df Model:                           3                                         
