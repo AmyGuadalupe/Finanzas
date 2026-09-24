@@ -1,0 +1,5 @@
+,y: VP del crédito,x1: Tasa BCRP,x2: Bono EE.UU.,x3: Tipo de cambio
+y: VP del crédito,1.0,-0.0865,-0.269,-0.327
+x1: Tasa BCRP,-0.0865,1.0,0.0356,-0.0293
+x2: Bono EE.UU.,-0.269,0.0356,1.0,0.0623
+x3: Tipo de cambio,-0.327,-0.0293,0.0623,1.0

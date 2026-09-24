@@ -1,8 +1,8 @@
 RESUMEN DE LIMPIEZA
-Días en el crudo (series diarias): 1476
-Días eliminados por 'n.d.' (feriados): 88
-Filas finales de la base procesada: 1388
-Periodo: 2021-01-04 a 2026-08-31
-Crédito representativo: S/ 300,000 a 240 meses | TEA pactada (2021-01): 7.3839% | cuota: S/ 2,352.12
-Máxima diferencia entre el promedio mensual de la TEA diaria y la TEA oficial: 0.1478 p.p.
-Días con atípico extremo (marcados y winsorizados, no eliminados): 27
+Días en el crudo (series diarias): 2260
+Días con 'n.d.' completados con el último valor observado (LOCF): 123 (329 datos)
+Filas finales de la base procesada: 2260
+Periodo: 2018-01-02 a 2026-08-31
+Crédito representativo: S/ 300,000 a 240 meses | TEA pactada (2018-01): 8.6595% | cuota: S/ 2,571.98
+Máxima diferencia entre el promedio mensual de la TEA diaria y la TEA oficial: 0.1473 p.p.
+Días con atípico extremo (marcados y winsorizados, no eliminados): 73

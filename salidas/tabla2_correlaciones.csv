@@ -1,5 +1,5 @@
 ,vp_credito,tasa_referencia,rend_bono10_usa,tipo_cambio
-vp_credito,1.0,-0.1027,-0.6284,0.6097
-tasa_referencia,-0.1027,1.0,0.7265,-0.0885
-rend_bono10_usa,-0.6284,0.7265,1.0,-0.5197
-tipo_cambio,0.6097,-0.0885,-0.5197,1.0
+vp_credito,1.0,0.3121,0.084,0.8326
+tasa_referencia,0.3121,1.0,0.8152,0.2822
+rend_bono10_usa,0.084,0.8152,1.0,0.062
+tipo_cambio,0.8326,0.2822,0.062,1.0

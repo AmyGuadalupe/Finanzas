@@ -1,10 +1,10 @@
 ,valor
 fecha_corte,2026-08-31
 tea_corte_%,7.595473
-cuota_mensual,2352.1177822564173
-valor_presente,295479.70420386863
-derivada_dVP_por_1pp,-21102.96068193873
-duracion_macaulay_anios,7.684395929633776
-duracion_modificada,7.141932383747943
-convexidad,83.59552699570243
-elasticidad_VP_TEA,-0.5424635458858315
+cuota_mensual,2571.9785515799513
+valor_presente,323099.23736492975
+derivada_dVP_por_1pp,-23075.52906500856
+duracion_macaulay_anios,7.684395929633777
+duracion_modificada,7.141932383747945
+convexidad,83.59552699570246
+elasticidad_VP_TEA,-0.5424635458858316

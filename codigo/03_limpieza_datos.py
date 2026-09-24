@@ -1,28 +1,36 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-23 (fecha de los datos crudos que limpia este script)
+# Fecha de extracción: 2026-09-24 (fecha de los datos crudos que limpia este script)
 
 """
 03_limpieza_datos.py
 --------------------
 Toma el archivo crudo del script 01 y produce la base limpia del estudio:
-id | dia | mes | anio | y | x1 | x2 | x3 | insumos de y | atípicos | cambios diarios
+id | dia | mes | anio | y | x1 | x2 | x3 | insumos de y | marcas | cambios diarios
 
 Pasos:
   1. Convierte las fechas del BCRP ('04.Ene.21', 'Ene.2021', con 'Set' o 'Sep')
      y las separa en día, mes y año.
-  2. 'n.d.' (dato no disponible) -> vacío; se eliminan los días incompletos
-     (feriados). No se rellena ningún valor extraído del BCRP.
+  2. 'n.d.' (dato no disponible, feriados y días sin negociación): el día se
+     CONSERVA y se completa con el último valor observado (LOCF, "last
+     observation carried forward"; Moritz y Bartz-Beielstein, 2017): con el
+     mercado cerrado, la tasa se queda donde cerró. Esos días se marcan en la
+     columna 'imputado'. No se usa el promedio del periodo porque distorsiona
+     la serie (Little y Rubin, 2019) y crearía saltos artificiales (p. ej., la
+     tasa de referencia era 0.25 % en 2021 y su promedio 2021-2026 es 4.73 %).
   3. Une la TEA hipotecaria mensual a cada día (llave: año-mes).
-  4. Calcula la TEA hipotecaria diaria estimada y la variable y (valor
-     presente del crédito) con el monto y el plazo que vienen en el crudo.
-  5. Atípicos (regla del diagrama de caja de Tukey sobre los cambios
+  4. Calcula la TEA hipotecaria diaria estimada con una serie relacionada
+     diaria (Chow y Lin, 1971) y un margen suavizado sin discontinuidades
+     artificiales (Denton, 1971), y la variable y (valor presente del
+     crédito; Fabozzi y Fabozzi, 2021) con el monto y el plazo del crudo.
+  5. Atípicos (regla del diagrama de caja de Tukey, 1977, sobre los cambios
      diarios de y, x2 y x3):
        - leves:    fuera de 1.5 × IQR -> se conservan (movimientos normales)
        - extremos: fuera de 3.0 × IQR -> se marcan y se WINSORIZAN
      Winsorizar = reemplazar el cambio extremo por el límite del bigote
-     extremo. Los NIVELES publicados por el BCRP no se modifican.
+     extremo (Dixon, 1960; Tukey, 1962). Los NIVELES publicados por el BCRP
+     no se modifican.
   6. Guarda la base procesada, la tabla de atípicos, un resumen y el hash.
 """
 
@@ -44,7 +52,7 @@ CODIGO_MATRICULA = "2024200501G"
 # su TEA pactada es la TEA hipotecaria de ese mes. Así, si se amplía el
 # periodo, el origen del crédito se ajusta solo.
 
-# Regla de Tukey (diagrama de caja): 1.5 × IQR = atípico leve; 3 × IQR = extremo
+# Regla de Tukey (1977), diagrama de caja: 1.5 × IQR = atípico leve; 3 × IQR = extremo
 FACTOR_LEVE = 1.5
 FACTOR_EXTREMO = 3.0
 # Variables del modelo a las que se aplica la regla (sobre su cambio diario).
@@ -139,9 +147,16 @@ def main() -> None:
     diarias["valor"] = pd.to_numeric(diarias["valor"], errors="coerce")
     base = diarias.pivot(index="fecha", columns="variable", values="valor").sort_index()
     filas_iniciales = len(base)
-    dias_incompletos = int(base.isna().any(axis=1).sum())
-    base = base.dropna().reset_index()
-    registrar_log(f"Días: {filas_iniciales} | con 'n.d.' (eliminados): {dias_incompletos} | completos: {len(base)}")
+    marca_imputado = base.isna().any(axis=1)
+    dias_incompletos = int(marca_imputado.sum())
+    datos_imputados = int(base.isna().sum().sum())
+    # LOCF (Moritz y Bartz-Beielstein, 2017): cada vacío toma el último valor observado de su serie.
+    # Si la serie empezara con vacío, se usa el primer valor disponible (bfill).
+    base = base.ffill().bfill()
+    base["imputado"] = marca_imputado.astype(int)
+    base = base.reset_index()
+    registrar_log(f"Días: {filas_iniciales} | con algún 'n.d.': {dias_incompletos} "
+                  f"({datos_imputados} datos) -> completados con el último valor observado y marcados en 'imputado'")
 
     # 5.3 TEA hipotecaria mensual unida a cada día de su mes
     mensual = crudo[crudo["variable"] == "tea_hipotecaria_pen"].copy()
@@ -151,19 +166,23 @@ def main() -> None:
     base = base.merge(mensual[["llave_mes", "tea_hipotecaria_mensual"]], on="llave_mes", how="inner")
 
     # 5.4 TEA hipotecaria diaria estimada = bono peruano del día + margen hipotecario.
+    #     Base metodológica: desagregación temporal con serie relacionada
+    #     (Chow y Lin, 1971) y variante aditiva de Denton (1971), que mantiene
+    #     suave la diferencia entre la serie estimada y la serie indicadora.
     #     Margen del mes = TEA hipotecaria oficial - promedio mensual del bono.
     #     El margen se ancla al día 15 de cada mes y avanza de forma gradual
     #     (interpolación lineal) para no crear saltos artificiales al cambiar
     #     de mes. El movimiento diario proviene solo del bono (dato real).
     margen_mes = (mensual.set_index("llave_mes")["tea_hipotecaria_mensual"]
-                  - base.groupby("llave_mes")["rend_bono10_pen"].mean()).dropna()
+                  - base[base["imputado"] == 0].groupby("llave_mes")["rend_bono10_pen"].mean()).dropna()
     anclas = pd.Series(margen_mes.values, index=pd.to_datetime([m + "-15" for m in margen_mes.index]))
     calendario = pd.date_range(min(anclas.index.min(), base["fecha"].min()),
                                max(anclas.index.max(), base["fecha"].max()), freq="D")
     margen_diario = anclas.reindex(calendario).interpolate("linear", limit_direction="both")
     base["tea_hipotecaria_diaria"] = base["rend_bono10_pen"] + margen_diario.reindex(base["fecha"]).values
 
-    # 5.5 Variable y: valor presente del crédito representativo.
+    # 5.5 Variable y: valor presente del crédito representativo (anualidad;
+    #     Fabozzi y Fabozzi, 2021).
     #     Cuota fija pactada con la TEA del mes de origen; se valoran siempre
     #     'plazo' cuotas por delante (plazo constante), de modo que lo único
     #     que cambia de un día a otro es la tasa de interés.
@@ -188,7 +207,7 @@ def main() -> None:
         inf_ext, sup_ext = limites_tukey(cambio, FACTOR_EXTREMO)
         es_leve = ((cambio < inf_leve) | (cambio > sup_leve)) & ~((cambio < inf_ext) | (cambio > sup_ext))
         es_extremo = (cambio < inf_ext) | (cambio > sup_ext)
-        # Tratamiento: winsorización del cambio diario en los límites extremos
+        # Tratamiento: winsorización (Dixon, 1960; Tukey, 1962) en los límites extremos
         base[f"d_{variable}"] = cambio.clip(lower=inf_ext, upper=sup_ext)
         base.loc[es_extremo, "atipico"] = 1
         for i in base.index[es_extremo]:
@@ -208,6 +227,7 @@ def main() -> None:
                 "tasa_referencia", "rend_bono10_usa", "tipo_cambio",  # x1, x2, x3
                 "tea_hipotecaria_mensual", "rend_bono10_pen",         # insumos extraídos
                 "tea_hipotecaria_diaria",                             # insumo calculado
+                "imputado",                                           # 1 = día con 'n.d.' completado (LOCF)
                 "atipico",                                            # 1 = día con atípico extremo
                 "d_vp_credito", "d_tasa_referencia",                  # cambios diarios
                 "d_rend_bono10_usa", "d_tipo_cambio"]                 # (winsorizados en y, x2, x3)
@@ -227,7 +247,7 @@ def main() -> None:
     resumen = [
         "RESUMEN DE LIMPIEZA",
         f"Días en el crudo (series diarias): {filas_iniciales}",
-        f"Días eliminados por 'n.d.' (feriados): {dias_incompletos}",
+        f"Días con 'n.d.' completados con el último valor observado (LOCF): {dias_incompletos} ({datos_imputados} datos)",
         f"Filas finales de la base procesada: {len(procesado)}",
         f"Periodo: {base['fecha'].iloc[0]:%Y-%m-%d} a {base['fecha'].iloc[-1]:%Y-%m-%d}",
         f"Crédito representativo: S/ {monto:,.0f} a {plazo} meses | TEA pactada ({MES_ORIGEN}): {tea_pactada:.4f}% | cuota: S/ {cuota:,.2f}",

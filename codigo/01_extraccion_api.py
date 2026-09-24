@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-23 (actualizar si el script se ejecuta otro día)
+# Fecha de extracción: 2026-09-24 (actualizar si el script se ejecuta otro día)
 
 """
 01_extraccion_api.py
@@ -36,7 +36,7 @@ import requests
 # La consigna exige que FECHA_INICIO y FECHA_CORTE sean constantes para que
 # el docente obtenga la misma base al volver a ejecutar el script.
 # ---------------------------------------------------------------------------
-FECHA_INICIO = "2021-01-04"   # primer día hábil de 2021 (ej. para ampliar: "2015-01-02")
+FECHA_INICIO = "2018-01-02"   # primer día hábil de 2018 (~2,260 días hábiles; incluye la pandemia)
 FECHA_CORTE = "2026-08-31"    # último mes con dato de la tasa hipotecaria
 CODIGO_MATRICULA = "2024200501G"
 

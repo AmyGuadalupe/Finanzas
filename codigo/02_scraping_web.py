@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-23 (actualizar si el script se ejecuta otro día)
+# Fecha de extracción: 2026-09-24 (actualizar si el script se ejecuta otro día)
 
 """
 02_scraping_web.py
