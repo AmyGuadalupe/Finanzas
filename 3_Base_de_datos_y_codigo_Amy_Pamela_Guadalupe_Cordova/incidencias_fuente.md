@@ -5,7 +5,7 @@
 | Campo | Detalle |
 |---|---|
 | URL consultada | https://www.sbs.gob.pe/app/pp/EstadisticasSAEEPortal/Paginas/TIActivaTipoCreditoEmpresa.aspx?tip=B |
-| Fecha y hora de la consulta | 2026-09-25 01:15:18 (hora del servidor de ejecución) |
+| Fecha y hora de la consulta | 2026-09-25 03:28:29 (hora del servidor de ejecución) |
 | Código de respuesta HTTP | 200 |
 | Tipo de contenido recibido | text/html; charset=utf-8 |
 | robots.txt | https://www.sbs.gob.pe/robots.txt (código 200); copia en `datos_crudos/sbs/robots_sbs.txt` |

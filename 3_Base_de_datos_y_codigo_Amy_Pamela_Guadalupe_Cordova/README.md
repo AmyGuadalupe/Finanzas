@@ -39,7 +39,7 @@ El repositorio sigue el numeral 2.5 de la consigna: tres carpetas con el nombre 
 1_Productos_Amy_Pamela_Guadalupe_Cordova/               artículo, Beamer, póster y pósteres (PDF); artículos Q1-Q2 y traducciones
 2_Desarrollo_Amy_Pamela_Guadalupe_Cordova/              templates (.tex) del journal, del póster, del Beamer y de los pósteres
 3_Base_de_datos_y_codigo_Amy_Pamela_Guadalupe_Cordova/  (esta carpeta)
-    codigo/            01_extraccion_api.py · 02_scraping_web.py · 03_limpieza_datos.py · 04_analisis.py · 05_verificacion_fuente.py
+    codigo/            00_pipeline_colab.ipynb · 01_extraccion_api.py · 02_scraping_web.py · 03_limpieza_datos.py · 04_analisis.py · 05_verificacion_fuente.py
     datos_crudos/      datos_crudos_2024200501G.csv · json/ (respuestas originales de la API) · sbs/
     datos_procesados/  datos_procesados_2024200501G.csv (2260 filas × 17 columnas)
     salidas/           tablas (CSV), regresiones (TXT), figuras (PNG) e informe de verificación
@@ -61,7 +61,8 @@ python codigo/05_verificacion_fuente.py
 ```
 
 Los scripts usan rutas relativas a esta carpeta, por lo que funcionan en cualquier computadora. El cuaderno
-`00_pipeline_colab.ipynb` ejecuta la misma secuencia en Google Colab.
+`codigo/00_pipeline_colab.ipynb` ejecuta la misma secuencia en Google Colab y, además, organiza las carpetas,
+genera esta documentación, guarda la copia en Google Drive y sube los cambios a GitHub.
 
 ## Versiones
 
