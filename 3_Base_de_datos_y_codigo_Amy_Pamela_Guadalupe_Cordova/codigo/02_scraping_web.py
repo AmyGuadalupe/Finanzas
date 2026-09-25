@@ -51,6 +51,9 @@ CABECERAS = {"User-Agent": f"UNCP-Finanzas-I/1.0 (investigacion academica; conta
 RAIZ = Path(__file__).resolve().parents[1]
 CARPETA_SBS = RAIZ / "datos_crudos" / "sbs"
 ARCHIVO_INCIDENCIAS = RAIZ / "incidencias_fuente.md"
+# Captura de pantalla tomada por la autora en su navegador (numeral 2.4.3).
+# Se sube a mano a la carpeta 3 con este nombre; si existe, se inserta sola.
+NOMBRES_CAPTURA = ["captura_sbs.png", "captura_sbs.jpg", "captura_sbs.jpeg"]
 ARCHIVO_LOG = RAIZ / "log_ejecucion.txt"
 CARPETA_SBS.mkdir(parents=True, exist_ok=True)
 
@@ -116,6 +119,18 @@ def main() -> None:
     diagnostico = diagnosticar(pagina, robots)
     registrar_log(f"Diagnóstico: {diagnostico}")
 
+    # Si la autora ya subió su captura de pantalla, se muestra en el registro
+    captura = next((RAIZ / nombre for nombre in NOMBRES_CAPTURA if (RAIZ / nombre).exists()), None)
+    if captura:
+        fila_captura = f"Ver la sección *Captura de pantalla* (`{captura.name}`)"
+        bloque_captura = ("\n## Captura de pantalla\n\nTomada por la autora al abrir el portal de la SBS en su "
+                          f"navegador; la fecha y la hora se ven en la barra de tareas.\n\n"
+                          f"![Captura de pantalla del portal de la SBS]({captura.name})\n")
+        registrar_log(f"Captura de pantalla incluida: {captura.name}")
+    else:
+        fila_captura = "*(pendiente: subir `captura_sbs.png` a la carpeta 3)*"
+        bloque_captura = ""
+
     ARCHIVO_INCIDENCIAS.write_text(f"""# Incidencias de fuente
 
 ## SBS: tasas de interés hipotecarias por empresa bancaria
@@ -129,8 +144,8 @@ def main() -> None:
 | robots.txt | {URL_ROBOTS} (código {robots['codigo']}); copia en `datos_crudos/sbs/robots_sbs.txt` |
 | Respuesta guardada | `datos_crudos/sbs/respuesta_sbs.html` |
 | Diagnóstico | {diagnostico} |
-| Captura de pantalla | *(agregar aquí la captura tomada por la autora al intentar la consulta)* |
-
+| Captura de pantalla | {fila_captura} |
+{bloque_captura}
 ## Decisión
 
 La información de la SBS **no se incorpora a la base de datos**. En la Unidad I

@@ -222,3 +222,87 @@
 2026-09-24 23:01:43 | 05_verificacion | Prueba 5 (muestra de 10 filas, semilla 501): OK
 2026-09-24 23:01:43 | 05_verificacion | Veredicto: APROBADO: todos los datos extraídos coinciden con la fuente oficial (BCRPData).
 2026-09-24 23:01:43 | 05_verificacion | === Fin de la verificación ===
+2026-09-25 01:14:58 | === Inicio de extracción | ventana 2018-01-02 a 2026-08-31 ===
+2026-09-25 01:14:59 | GET PN07848NM (tea_hipotecaria_pen) | HTTP 200 | filas=104 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PN07848NM/json/2018-1/2026-8/esp
+2026-09-25 01:15:02 | GET PD31893DD (rend_bono10_pen) | HTTP 200 | filas=2260 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD31893DD/json/2018-1-2/2026-8-31/esp
+2026-09-25 01:15:05 | GET PD12301MD (tasa_referencia) | HTTP 200 | filas=2260 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD12301MD/json/2018-1-2/2026-8-31/esp
+2026-09-25 01:15:08 | GET PD04719XD (rend_bono10_usa) | HTTP 200 | filas=2260 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04719XD/json/2018-1-2/2026-8-31/esp
+2026-09-25 01:15:11 | GET PD04640PD (tipo_cambio) | HTTP 200 | filas=2260 | https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04640PD/json/2018-1-2/2026-8-31/esp
+2026-09-25 01:15:13 | Archivo crudo guardado: datos_crudos/datos_crudos_2024200501G.csv | filas totales=9144
+2026-09-25 01:15:13 |    rend_bono10_pen: 2260 filas
+2026-09-25 01:15:13 |    rend_bono10_usa: 2260 filas
+2026-09-25 01:15:13 |    tasa_referencia: 2260 filas
+2026-09-25 01:15:13 |    tea_hipotecaria_pen: 104 filas
+2026-09-25 01:15:13 |    tipo_cambio: 2260 filas
+2026-09-25 01:15:13 | === Fin de extracción ===
+2026-09-25 01:15:15 | 02_scraping | === Inicio del intento de rastreo SBS ===
+2026-09-25 01:15:16 | 02_scraping | GET https://www.sbs.gob.pe/robots.txt | HTTP 200 | 4136 caracteres
+2026-09-25 01:15:20 | 02_scraping | GET https://www.sbs.gob.pe/app/pp/EstadisticasSAEEPortal/Paginas/TIActivaTipoCreditoEmpresa.aspx?tip=B | HTTP 200 | 486116 caracteres
+2026-09-25 01:15:20 | 02_scraping | Diagnóstico: El portal responde, pero es una aplicación ASP.NET con formulario dinámico: solo muestra el reporte de la fecha consultada y no ofrece una serie histórica descargable, por lo que no es viable construir con él una serie comparable.
+2026-09-25 01:15:20 | 02_scraping | Captura de pantalla incluida: captura_sbs.png
+2026-09-25 01:15:20 | 02_scraping | Incidencia registrada en incidencias_fuente.md
+2026-09-25 01:15:20 | 02_scraping | === Fin del intento de rastreo SBS ===
+2026-09-25 01:15:21 | 03_limpieza | === Inicio de limpieza ===
+2026-09-25 01:15:21 | 03_limpieza | Crudo leído: 9144 filas | crédito: S/ 300,000 a 240 meses
+2026-09-25 01:15:22 | 03_limpieza | Días: 2260 | con algún 'n.d.': 123 (329 datos) -> completados con el último valor observado y marcados en 'imputado'
+2026-09-25 01:15:22 | 03_limpieza | TEA pactada (2018-01) = 8.6595% | cuota = S/ 2,571.98
+2026-09-25 01:15:22 | 03_limpieza | Atípicos en cambio de vp_credito: leves=138 (se conservan) | extremos=47 (winsorizados a [-4836.8952, 4874.6868])
+2026-09-25 01:15:22 | 03_limpieza | Atípicos en cambio de rend_bono10_usa: leves=58 (se conservan) | extremos=5 (winsorizados a [-0.2250, 0.2300])
+2026-09-25 01:15:22 | 03_limpieza | Atípicos en cambio de tipo_cambio: leves=130 (se conservan) | extremos=30 (winsorizados a [-0.0420, 0.0420])
+2026-09-25 01:15:22 | 03_limpieza | Días con al menos un atípico extremo: 73 (se conservan, marcados)
+2026-09-25 01:15:22 | 03_limpieza | Base procesada: datos_procesados/datos_procesados_2024200501G.csv | 2260 filas x 17 columnas
+2026-09-25 01:15:22 | 03_limpieza | SHA-256: 63728e28983100f5e129622c0fda119deba6504ef2874a7cd75b83c2f9b1736e
+2026-09-25 01:15:22 | 03_limpieza | === Fin de limpieza ===
+2026-09-25 01:15:36 | 04_analisis | === Inicio del análisis ===
+2026-09-25 01:15:36 | 04_analisis | Base: 2260 filas | crédito S/ 300,000, 240 meses, cuota S/ 2,571.98
+2026-09-25 01:15:36 | 04_analisis | Tabla guardada: salidas/tabla1_descriptivos.csv
+2026-09-25 01:15:36 | 04_analisis | Tabla guardada: salidas/tabla2_correlaciones.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla3_estacionariedad_adf.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla4_vif.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla5_regresiones.csv
+2026-09-25 01:15:39 | 04_analisis | Modelo 1: R2=0.7036, DW=0.090 | Modelo 2: R2=0.1765, DW=1.827 | Modelo 3: R2=0.1620
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla6_sensibilidad_al_corte.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla7_escenarios.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla8_plazos.csv
+2026-09-25 01:15:39 | 04_analisis | Tabla guardada: salidas/tabla9_atipicos_resumen.csv
+2026-09-25 01:15:39 | 04_analisis | Figura guardada: salidas/figura1_valor_presente_tiempo.png
+2026-09-25 01:15:40 | 04_analisis | Figura guardada: salidas/figura2_tasas_interes.png
+2026-09-25 01:15:40 | 04_analisis | Figura guardada: salidas/figura3_boxplot_atipicos.png
+2026-09-25 01:15:41 | 04_analisis | Figura guardada: salidas/figura4_dispersion_y_x.png
+2026-09-25 01:15:41 | 04_analisis | Figura guardada: salidas/figura5_curva_sensibilidad.png
+2026-09-25 01:15:41 | 04_analisis | Figura guardada: salidas/figura6_escenarios.png
+2026-09-25 01:15:42 | 04_analisis | Figura guardada: salidas/figura7_plazos.png
+2026-09-25 01:15:42 | 04_analisis | Figura guardada: salidas/figura8_duracion_elasticidad_tiempo.png
+2026-09-25 01:15:43 | 04_analisis | Figura guardada: salidas/figura9_boxplot_niveles.png
+2026-09-25 01:15:43 | 04_analisis | Tabla guardada: salidas/tabla10_correlaciones_cambios.csv
+2026-09-25 01:15:43 | 04_analisis | Figura guardada: salidas/figura10_correlaciones.png
+2026-09-25 01:15:44 | 04_analisis | Figura guardada: salidas/figura11_distribucion_cambios.png
+2026-09-25 01:15:45 | 04_analisis | Figura guardada: salidas/figura12_residuos_autocorrelacion.png
+2026-09-25 01:15:45 | 04_analisis | Figura guardada: salidas/figura13_coeficientes_ic95.png
+2026-09-25 01:15:45 | 04_analisis | Figura guardada: salidas/figura14_flujos_duracion_macaulay.png
+2026-09-25 01:15:45 | 04_analisis | Tabla guardada: salidas/tabla11_duracion_por_plazo.csv
+2026-09-25 01:15:46 | 04_analisis | Figura guardada: salidas/figura15_duracion_por_plazo.png
+2026-09-25 01:15:46 | 04_analisis | Figura guardada: salidas/figura16_curvas_sensibilidad_plazos.png
+2026-09-25 01:15:46 | 04_analisis | Tabla guardada: salidas/tabla12_mapa_sensibilidad.csv
+2026-09-25 01:15:46 | 04_analisis | Figura guardada: salidas/figura17_mapa_sensibilidad.png
+2026-09-25 01:15:46 | 04_analisis | Figura guardada: salidas/figura18_aproximaciones_convexidad.png
+2026-09-25 01:15:47 | 04_analisis | Figura guardada: salidas/figura19_imputados_atipicos_por_anio.png
+2026-09-25 01:15:47 | 04_analisis | Al corte 2026-08-31: VP=S/ 323,099.24 | D.mod=7.142 | elasticidad=-0.5425
+2026-09-25 01:15:47 | 04_analisis | === Fin del análisis ===
+2026-09-25 01:15:48 | 05_verificacion | === Inicio de la verificación contra la fuente ===
+2026-09-25 01:15:49 | 05_verificacion | Prueba 1 (hash): OK
+2026-09-25 01:15:49 | 05_verificacion | GET PN07848NM | HTTP 200 | filas=104
+2026-09-25 01:15:51 | 05_verificacion | Prueba 2 (PN07848NM): 104/104 celdas coinciden
+2026-09-25 01:15:52 | 05_verificacion | GET PD31893DD | HTTP 200 | filas=2260
+2026-09-25 01:15:54 | 05_verificacion | Prueba 2 (PD31893DD): 2260/2260 celdas coinciden
+2026-09-25 01:15:55 | 05_verificacion | GET PD12301MD | HTTP 200 | filas=2260
+2026-09-25 01:15:57 | 05_verificacion | Prueba 2 (PD12301MD): 2260/2260 celdas coinciden
+2026-09-25 01:15:58 | 05_verificacion | GET PD04719XD | HTTP 200 | filas=2260
+2026-09-25 01:16:00 | 05_verificacion | Prueba 2 (PD04719XD): 2260/2260 celdas coinciden
+2026-09-25 01:16:01 | 05_verificacion | GET PD04640PD | HTTP 200 | filas=2260
+2026-09-25 01:16:02 | 05_verificacion | Prueba 2 (PD04640PD): 2260/2260 celdas coinciden
+2026-09-25 01:16:02 | 05_verificacion | Prueba 3 (procesado): OK | marca 'imputado' correcta en 2260/2260 días
+2026-09-25 01:16:03 | 05_verificacion | Prueba 4 (calculadas): diferencia máxima en vp_credito = S/ 0.0169
+2026-09-25 01:16:03 | 05_verificacion | Prueba 5 (muestra de 10 filas, semilla 501): OK
+2026-09-25 01:16:03 | 05_verificacion | Veredicto: APROBADO: todos los datos extraídos coinciden con la fuente oficial (BCRPData).
+2026-09-25 01:16:03 | 05_verificacion | === Fin de la verificación ===

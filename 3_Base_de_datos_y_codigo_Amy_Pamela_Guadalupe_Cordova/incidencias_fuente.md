@@ -5,13 +5,19 @@
 | Campo | Detalle |
 |---|---|
 | URL consultada | https://www.sbs.gob.pe/app/pp/EstadisticasSAEEPortal/Paginas/TIActivaTipoCreditoEmpresa.aspx?tip=B |
-| Fecha y hora de la consulta | 2026-09-24 23:00:53 (hora del servidor de ejecución) |
+| Fecha y hora de la consulta | 2026-09-25 01:15:18 (hora del servidor de ejecución) |
 | Código de respuesta HTTP | 200 |
 | Tipo de contenido recibido | text/html; charset=utf-8 |
 | robots.txt | https://www.sbs.gob.pe/robots.txt (código 200); copia en `datos_crudos/sbs/robots_sbs.txt` |
 | Respuesta guardada | `datos_crudos/sbs/respuesta_sbs.html` |
 | Diagnóstico | El portal responde, pero es una aplicación ASP.NET con formulario dinámico: solo muestra el reporte de la fecha consultada y no ofrece una serie histórica descargable, por lo que no es viable construir con él una serie comparable. |
-| Captura de pantalla | *(agregar aquí la captura tomada por la autora al intentar la consulta)* |
+| Captura de pantalla | Ver la sección *Captura de pantalla* (`captura_sbs.png`) |
+
+## Captura de pantalla
+
+Tomada por la autora al abrir el portal de la SBS en su navegador; la fecha y la hora se ven en la barra de tareas.
+
+![Captura de pantalla del portal de la SBS](captura_sbs.png)
 
 ## Decisión
 

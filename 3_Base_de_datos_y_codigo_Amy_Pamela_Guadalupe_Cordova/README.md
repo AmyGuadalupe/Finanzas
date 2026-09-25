@@ -43,7 +43,8 @@ El repositorio sigue el numeral 2.5 de la consigna: tres carpetas con el nombre 
     datos_crudos/      datos_crudos_2024200501G.csv · json/ (respuestas originales de la API) · sbs/
     datos_procesados/  datos_procesados_2024200501G.csv (2260 filas × 17 columnas)
     salidas/           tablas (CSV), regresiones (TXT), figuras (PNG) e informe de verificación
-    diccionario_variables.md · fundamento_metodologico.md · README.md · requirements.txt · .env.example · log_ejecucion.txt · hash_sha256.txt · incidencias_fuente.md
+    diccionario_variables.md · fundamento_metodologico.md · README.md · requirements.txt · .env.example · log_ejecucion.txt · hash_sha256.txt
+    incidencias_fuente.md · captura_sbs.png · enlace_repositorio_github.txt
 ```
 
 ## Orden de ejecución
