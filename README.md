@@ -30,7 +30,7 @@ Vía de extracción: **API REST de BCRPData** (Banco Central de Reserva del Per�
   Crédito Mivivienda (viviendas de S/ 64,200 a S/ 464,200, financiamiento hasta 90 %, plazo de 5 a 25 años;
   https://www.gob.pe/33425-programa-nuevo-credito-mivivienda). Se declara como constante (`MONTO_CREDITO` y
   `PLAZO_MESES`) en los scripts 03, 04 y 05; no se agrega al archivo crudo, que queda tal como lo envía la API.
-- **Fecha de extracción:** 2026-09-27 (hora de Lima), según `log_ejecucion.txt`.
+- **Fecha de extracción:** 2026-09-27, según `log_ejecucion.txt`.
 - **Segunda vía (SBS):** intento documentado en `incidencias_fuente.md`; no aporta datos (opcional en la Unidad I).
   El script revisa primero el robots.txt y solo consulta la página si la ruta está permitida.
 
@@ -74,9 +74,6 @@ persona que clone este repositorio obtiene exactamente los mismos resultados. El
 `codigo/00_pipeline_colab.ipynb` ejecuta la misma secuencia en Google Colab y, además, ordena el repositorio,
 genera esta documentación, sube los cambios a mi GitHub y descarga el proyecto en .zip; esos pasos adicionales
 son solo para mi propio flujo de trabajo y no son necesarios para reproducir el análisis.
-
-Las horas de `log_ejecucion.txt` están en hora de Lima (UTC-5). Las líneas anteriores a la nota que lo indica
-están en UTC, la hora del servidor de Google Colab.
 
 ## Versiones
 

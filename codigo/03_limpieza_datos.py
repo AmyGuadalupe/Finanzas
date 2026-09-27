@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-27 (fecha de los datos crudos que limpia este script; hora de Lima)
+# Fecha de extracción: 2026-09-27
 
 """
 03_limpieza_datos.py
@@ -57,7 +57,7 @@ CODIGO_MATRICULA = "2024200501G"
 # con plazos de 5 a 25 años). S/ 300,000 a 240 meses está dentro de esos límites.
 MONTO_CREDITO = 300_000   # soles
 PLAZO_MESES = 240         # 20 años
-# Horas del log en hora de Lima (UTC-5), sin importar la máquina que ejecute
+# Hora peruana (UTC-5), para que el log no dependa de la zona horaria del servidor
 HORA_PERU = timezone(timedelta(hours=-5))
 # El crédito se pacta en el primer mes del periodo (FECHA_INICIO del script 01):
 # su TEA pactada es la TEA hipotecaria de ese mes. Así, si se amplía el

@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-27 (fecha de los datos que analiza este script; hora de Lima)
+# Fecha de extracción: 2026-09-27
 
 """
 04_analisis.py
@@ -59,7 +59,7 @@ CODIGO_MATRICULA = "2024200501G"
 # Mismos supuestos del crédito que en 03_limpieza_datos.py (Nuevo Crédito Mivivienda)
 MONTO_CREDITO = 300_000   # soles
 PLAZO_MESES = 240         # 20 años
-# Horas del log en hora de Lima (UTC-5), sin importar la máquina que ejecute
+# Hora peruana (UTC-5), para que el log no dependa de la zona horaria del servidor
 HORA_PERU = timezone(timedelta(hours=-5))
 CHOQUES_PP = [-2, -1, 1, 2]                 # choques de tasa en puntos porcentuales
 PLAZOS_ANIOS = [10, 15, 20, 25]             # 25 años = plazo máximo del Nuevo Crédito Mivivienda

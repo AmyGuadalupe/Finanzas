@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-27 (fecha de los datos que verifica este script; hora de Lima)
+# Fecha de extracción: 2026-09-27
 
 """
 05_verificacion_fuente.py
@@ -50,7 +50,7 @@ CODIGO_MATRICULA = "2024200501G"
 # Mismos supuestos del crédito que en 03_limpieza_datos.py
 MONTO_CREDITO = 300_000   # soles
 PLAZO_MESES = 240         # 20 años
-# Horas del log en hora de Lima (UTC-5), sin importar la máquina que ejecute
+# Hora peruana (UTC-5), para que el log no dependa de la zona horaria del servidor
 HORA_PERU = timezone(timedelta(hours=-5))
 
 # Semilla de la muestra al azar: últimos cuatro dígitos de la matrícula
@@ -351,7 +351,7 @@ def main() -> None:
 
     ARCHIVO_INFORME.write_text(f"""# Verificación de los datos contra la fuente oficial
 
-- **Fecha y hora de esta verificación:** {datetime.now(HORA_PERU):%Y-%m-%d %H:%M:%S} (hora de Lima)
+- **Fecha y hora de esta verificación:** {datetime.now(HORA_PERU):%Y-%m-%d %H:%M:%S}
 - **Extracción original (según log_ejecucion.txt):** {hora_extraccion_original()}
 - **Ventana consultada:** {FECHA_INICIO} a {FECHA_CORTE}
 - **Fuente:** API de BCRPData, {URL_BASE}

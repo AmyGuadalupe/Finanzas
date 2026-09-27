@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-27 (hora de Lima; el cuaderno la sincroniza con log_ejecucion.txt)
+# Fecha de extracción: 2026-09-27
 
 """
 02_scraping_web.py
@@ -46,7 +46,7 @@ TIEMPO_ESPERA = 60
 
 CONTACTO = os.getenv("CONTACTO_EMAIL", "sin-contacto")
 CABECERAS = {"User-Agent": f"UNCP-Finanzas-I/1.0 (investigacion academica; contacto: {CONTACTO})"}
-HORA_PERU = timezone(timedelta(hours=-5))   # hora de Lima (UTC-5) en el log
+HORA_PERU = timezone(timedelta(hours=-5))   # hora peruana (UTC-5)
 
 # ---------------------------------------------------------------------------
 # BLOQUE 3. Rutas relativas
@@ -166,7 +166,7 @@ def main() -> None:
 | Campo | Detalle |
 |---|---|
 | URL consultada | {URL_SBS} |
-| Fecha y hora de la consulta | {pagina['hora']} (hora de Lima, UTC-5) |
+| Fecha y hora de la consulta | {pagina['hora']} |
 | Código de respuesta HTTP | {pagina['codigo']} |
 | Tipo de contenido recibido | {pagina['tipo']} |
 | robots.txt | {URL_ROBOTS} (código {robots['codigo']}); copia en `datos_crudos/sbs/robots_sbs.txt` |

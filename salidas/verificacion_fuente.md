@@ -1,7 +1,7 @@
 # Verificación de los datos contra la fuente oficial
 
-- **Fecha y hora de esta verificación:** 2026-09-27 17:27:53 (hora de Lima)
-- **Extracción original (según log_ejecucion.txt):** 2026-09-27 17:26:54
+- **Fecha y hora de esta verificación:** 2026-09-27 17:43:07
+- **Extracción original (según log_ejecucion.txt):** 2026-09-27 17:41:59
 - **Ventana consultada:** 2018-01-02 a 2026-08-31
 - **Fuente:** API de BCRPData, https://estadisticas.bcrp.gob.pe/estadisticas/series/api
 

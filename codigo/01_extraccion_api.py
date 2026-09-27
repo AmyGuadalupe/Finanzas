@@ -1,7 +1,7 @@
 # Autora: Amy Pamela Guadalupe Cordova
 # Código de matrícula: 2024200501G
 # Tema N.º 18 (S03 · Valor del dinero en el tiempo I): Valor presente del crédito hipotecario y su sensibilidad a la tasa de interés
-# Fecha de extracción: 2026-09-27 (hora de Lima; el cuaderno la sincroniza con log_ejecucion.txt)
+# Fecha de extracción: 2026-09-27
 
 """
 01_extraccion_api.py
@@ -53,15 +53,14 @@ URL_BASE = "https://estadisticas.bcrp.gob.pe/estadisticas/series/api"
 PAUSA_SEGUNDOS = 1.5      # pausa entre consultas para no saturar el portal
 REINTENTOS = 3            # intentos por serie si la conexión falla
 TIEMPO_ESPERA = 60        # segundos máximos por consulta
-# Las horas del log se registran en hora de Lima (UTC-5; el Perú no cambia de
-# hora en el año), sin importar la zona horaria de la máquina que ejecute.
+# Hora peruana (UTC-5), para que el log no dependa de la zona horaria del servidor.
 HORA_PERU = timezone(timedelta(hours=-5))
 
 # ---------------------------------------------------------------------------
 # BLOQUE 3. Rutas relativas a la carpeta del proyecto
 # Path(__file__) es la ubicación de este script; .parents[1] es la carpeta
 # que contiene a /codigo. Así el script funciona en cualquier computadora,
-# sin rutas absolutas del tipo C:\Users\...
+# sin rutas absolutas que solo existan en la computadora de la autora.
 # ---------------------------------------------------------------------------
 RAIZ = Path(__file__).resolve().parents[1]
 CARPETA_CRUDOS = RAIZ / "datos_crudos"
