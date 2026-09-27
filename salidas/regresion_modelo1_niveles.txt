@@ -1,0 +1,27 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             vp_credito   R-squared:                       0.704
+Model:                            OLS   Adj. R-squared:                  0.703
+Method:                 Least Squares   F-statistic:                     300.3
+Date:                Sun, 27 Sep 2026   Prob (F-statistic):          5.36e-164
+Time:                        22:27:32   Log-Likelihood:                -23179.
+No. Observations:                2260   AIC:                         4.637e+04
+Df Residuals:                    2256   BIC:                         4.639e+04
+Df Model:                           3                                         
+Covariance Type:                  HAC                                         
+===================================================================================
+                      coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const             1.71e+05   5869.413     29.141      0.000     1.6e+05    1.83e+05
+tasa_referencia   995.4120    276.280      3.603      0.000     453.914    1536.910
+rend_bono10_usa -1122.1364    553.291     -2.028      0.043   -2206.568     -37.705
+tipo_cambio       4.31e+04   1635.619     26.348      0.000    3.99e+04    4.63e+04
+==============================================================================
+Omnibus:                      110.695   Durbin-Watson:                   0.090
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              155.819
+Skew:                           0.452   Prob(JB):                     1.46e-34
+Kurtosis:                       3.916   Cond. No.                         115.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 7 lags and without small sample correction
