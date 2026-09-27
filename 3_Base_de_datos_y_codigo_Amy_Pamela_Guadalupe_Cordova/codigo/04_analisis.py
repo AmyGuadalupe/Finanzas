@@ -14,7 +14,9 @@ datos_procesados/datos_procesados_2024200501G.csv y las guarda en /salidas.
   B. Regresión y = f(x1, x2, x3) por MCO con errores estándar HAC
      (Newey y West, 1987; rezagos según Newey y West, 1994):
        Modelo 1: niveles (con riesgo de regresión espuria; Granger y Newbold, 1974;
-                 autocorrelación medida con Durbin y Watson, 1950)
+                 autocorrelación medida con Durbin y Watson, 1950, y con la prueba
+                 LM de Breusch y Godfrey, 1978/1978, más general porque admite
+                 rezagos de orden superior y regresores predeterminados)
        Modelo 2: cambios diarios con atípicos winsorizados (modelo principal en cambios)
        Modelo 3: cambios diarios sin tratar (robustez: los atípicos pueden cambiar
                  las conclusiones en finanzas; Adams et al., 2019)
@@ -43,6 +45,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from statsmodels.stats.diagnostic import acorr_breusch_godfrey
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.stats.stattools import durbin_watson
 from statsmodels.tsa.stattools import adfuller
@@ -133,12 +136,25 @@ def medidas_sensibilidad(cuota, tea_porcentaje, meses):
 def regresion_hac(datos: pd.DataFrame, y: str, xs: list, nombre: str):
     """MCO con errores estándar robustos a heterocedasticidad y autocorrelación
     (Newey y West, 1987). Rezagos: regla floor(4·(n/100)^(2/9)) de Newey y West (1994).
-    Estadístico de Durbin y Watson (1950) para la autocorrelación de residuos."""
+    Autocorrelación de los residuos diagnosticada con dos pruebas complementarias:
+      - Durbin y Watson (1950): solo detecta autocorrelación de orden 1 y no es
+        válida si hay regresores predeterminados (rezagos de la variable
+        dependiente); se reporta como referencia descriptiva.
+      - Breusch (1978) y Godfrey (1978), prueba LM: generaliza a rezagos de orden
+        superior (aquí, el mismo número de rezagos usado en Newey-West) y sí es
+        válida con regresores predeterminados; es la prueba de referencia para
+        la conclusión sobre autocorrelación.
+    """
     datos = datos[[y] + xs].dropna()
     rezagos = int(np.floor(4 * (len(datos) / 100) ** (2 / 9)))
     modelo = sm.OLS(datos[y], sm.add_constant(datos[xs])).fit(cov_type="HAC", cov_kwds={"maxlags": rezagos})
     (SALIDAS / f"regresion_{nombre}.txt").write_text(str(modelo.summary()), encoding="utf-8")
-    return modelo, durbin_watson(modelo.resid), rezagos
+
+    nlags_bg = max(rezagos, 1)
+    bg_lm, bg_lm_p, bg_f, bg_f_p = acorr_breusch_godfrey(modelo, nlags=nlags_bg)
+    breusch_godfrey = {"nlags": nlags_bg, "lm_estadistico": bg_lm, "lm_p_valor": bg_lm_p,
+                       "f_estadistico": bg_f, "f_p_valor": bg_f_p}
+    return modelo, durbin_watson(modelo.resid), rezagos, breusch_godfrey
 
 
 # ---------------------------------------------------------------------------
@@ -177,16 +193,16 @@ def main() -> None:
     guardar_tabla(vif.set_index("variable").round(4), "tabla4_vif")
 
     # ------------------------- B. Regresiones ---------------------------------
-    m1, dw1, l1 = regresion_hac(datos, Y, X, "modelo1_niveles")
+    m1, dw1, l1, bg1 = regresion_hac(datos, Y, X, "modelo1_niveles")
     d_y, d_x = "d_vp_credito", ["d_tasa_referencia", "d_rend_bono10_usa", "d_tipo_cambio"]
-    m2, dw2, l2 = regresion_hac(datos, d_y, d_x, "modelo2_cambios_winsorizados")
+    m2, dw2, l2, bg2 = regresion_hac(datos, d_y, d_x, "modelo2_cambios_winsorizados")
     crudos = pd.DataFrame({d_y: datos[Y].diff(), **{f"d_{x}": datos[x].diff() for x in X}})
-    m3, dw3, l3 = regresion_hac(crudos, d_y, d_x, "modelo3_cambios_sin_tratar")
+    m3, dw3, l3, bg3 = regresion_hac(crudos, d_y, d_x, "modelo3_cambios_sin_tratar")
 
     filas = []
-    for etiqueta, modelo, dw, rez, ys, xs in [("Modelo 1 (niveles)", m1, dw1, l1, Y, X),
-                                              ("Modelo 2 (cambios, winsorizados)", m2, dw2, l2, d_y, d_x),
-                                              ("Modelo 3 (cambios, sin tratar)", m3, dw3, l3, d_y, d_x)]:
+    for etiqueta, modelo, dw, rez, bg, ys, xs in [("Modelo 1 (niveles)", m1, dw1, l1, bg1, Y, X),
+                                                  ("Modelo 2 (cambios, winsorizados)", m2, dw2, l2, bg2, d_y, d_x),
+                                                  ("Modelo 3 (cambios, sin tratar)", m3, dw3, l3, bg3, d_y, d_x)]:
         for termino in ["const"] + xs:
             fila = {"modelo": etiqueta, "variable": termino, "coeficiente": modelo.params[termino],
                     "error_estandar_HAC": modelo.bse[termino], "t": modelo.tvalues[termino],
@@ -197,11 +213,17 @@ def main() -> None:
         filas.append({"modelo": etiqueta, "variable": "R2", "coeficiente": modelo.rsquared})
         filas.append({"modelo": etiqueta, "variable": "R2_ajustado", "coeficiente": modelo.rsquared_adj})
         filas.append({"modelo": etiqueta, "variable": "Durbin_Watson", "coeficiente": dw})
+        filas.append({"modelo": etiqueta, "variable": "Breusch_Godfrey_rezagos", "coeficiente": bg["nlags"]})
+        filas.append({"modelo": etiqueta, "variable": "Breusch_Godfrey_LM_estadistico", "coeficiente": bg["lm_estadistico"]})
+        filas.append({"modelo": etiqueta, "variable": "Breusch_Godfrey_LM_p_valor", "coeficiente": bg["lm_p_valor"]})
+        filas.append({"modelo": etiqueta, "variable": "Breusch_Godfrey_F_estadistico", "coeficiente": bg["f_estadistico"]})
+        filas.append({"modelo": etiqueta, "variable": "Breusch_Godfrey_F_p_valor", "coeficiente": bg["f_p_valor"]})
         filas.append({"modelo": etiqueta, "variable": "n_observaciones", "coeficiente": modelo.nobs})
         filas.append({"modelo": etiqueta, "variable": "rezagos_Newey_West", "coeficiente": rez})
     guardar_tabla(pd.DataFrame(filas).set_index(["modelo", "variable"]).round(6), "tabla5_regresiones")
-    registrar_log(f"Modelo 1: R2={m1.rsquared:.4f}, DW={dw1:.3f} | Modelo 2: R2={m2.rsquared:.4f}, DW={dw2:.3f} | "
-                  f"Modelo 3: R2={m3.rsquared:.4f}")
+    registrar_log(f"Modelo 1: R2={m1.rsquared:.4f}, DW={dw1:.3f}, BG_LM_p={bg1['lm_p_valor']:.4f} | "
+                  f"Modelo 2: R2={m2.rsquared:.4f}, DW={dw2:.3f}, BG_LM_p={bg2['lm_p_valor']:.4f} | "
+                  f"Modelo 3: R2={m3.rsquared:.4f}, BG_LM_p={bg3['lm_p_valor']:.4f}")
 
     # ------------------------- C. Sensibilidad al corte ------------------------
     tea_corte = float(datos["tea_hipotecaria_diaria"].iloc[-1])
@@ -399,11 +421,11 @@ def main() -> None:
     # Figura 12: residuos en el tiempo y su autocorrelación (niveles vs. cambios)
     from statsmodels.tsa.stattools import acf
     fig, ejes = plt.subplots(2, 2, figsize=(10, 6))
-    for fila, (etiqueta, modelo, dw) in enumerate([("Modelo 1 (niveles)", m1, dw1), ("Modelo 2 (cambios)", m2, dw2)]):
+    for fila, (etiqueta, modelo, dw, bg) in enumerate([("Modelo 1 (niveles)", m1, dw1, bg1), ("Modelo 2 (cambios)", m2, dw2, bg2)]):
         residuos = modelo.resid
         ejes[fila, 0].plot(datos.loc[residuos.index, "fecha"], residuos, color="#1f4e79", lw=0.6)
         ejes[fila, 0].axhline(0, color="black", lw=0.6)
-        ejes[fila, 0].set_title(f"{etiqueta}: residuos (Durbin-Watson = {dw:.2f})", fontsize=9)
+        ejes[fila, 0].set_title(f"{etiqueta}: residuos (DW = {dw:.2f}; Breusch-Godfrey p = {bg['lm_p_valor']:.3f})", fontsize=9)
         autocorr = acf(residuos, nlags=30)[1:]
         ejes[fila, 1].bar(range(1, 31), autocorr, color="#1f4e79")
         banda = 1.96 / np.sqrt(len(residuos))
