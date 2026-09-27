@@ -1,0 +1,4 @@
+modelo,Durbin_Watson,Breusch_Godfrey_rezagos,Breusch_Godfrey_LM_estadistico,Breusch_Godfrey_LM_p_valor,Breusch_Godfrey_F_estadistico,Breusch_Godfrey_F_p_valor,conclusion_autocorrelacion_5%
+Modelo 1 (niveles),0.090166,7,2058.84491,0.0,3288.395316,0.0,hay autocorrelación (se rechaza H0 al 5 %)
+"Modelo 2 (cambios, winsorizados)",1.827426,7,44.153469,0.0,6.402056,0.0,hay autocorrelación (se rechaza H0 al 5 %)
+"Modelo 3 (cambios, sin tratar)",1.969371,7,55.244449,0.0,8.050512,0.0,hay autocorrelación (se rechaza H0 al 5 %)

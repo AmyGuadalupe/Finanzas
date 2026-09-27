@@ -30,6 +30,8 @@ datos_procesados/datos_procesados_2024200501G.csv y las guarda en /salidas.
   F. Figuras 9 a 19 (diagramas de caja de niveles, correlaciones, distribuciones,
      residuos, coeficientes, duración de Macaulay, sensibilidad por plazo,
      mapa de sensibilidad, convexidad, imputados y atípicos por año)
+  G. Tabla 13: resumen de autocorrelación (Durbin-Watson y Breusch-Godfrey)
+     por modelo, con la conclusión al 5 % de significancia
 """
 
 # ---------------------------------------------------------------------------
@@ -224,6 +226,23 @@ def main() -> None:
     registrar_log(f"Modelo 1: R2={m1.rsquared:.4f}, DW={dw1:.3f}, BG_LM_p={bg1['lm_p_valor']:.4f} | "
                   f"Modelo 2: R2={m2.rsquared:.4f}, DW={dw2:.3f}, BG_LM_p={bg2['lm_p_valor']:.4f} | "
                   f"Modelo 3: R2={m3.rsquared:.4f}, BG_LM_p={bg3['lm_p_valor']:.4f}")
+
+    # Tabla dedicada de autocorrelación (Durbin-Watson y Breusch-Godfrey), para
+    # que la conclusión de cada modelo se lea de un vistazo sin buscarla dentro
+    # de tabla5_regresiones.
+    filas_bg = []
+    for etiqueta, dw, bg in [("Modelo 1 (niveles)", dw1, bg1),
+                             ("Modelo 2 (cambios, winsorizados)", dw2, bg2),
+                             ("Modelo 3 (cambios, sin tratar)", dw3, bg3)]:
+        conclusion = ("hay autocorrelación (se rechaza H0 al 5 %)" if bg["lm_p_valor"] < 0.05
+                     else "no hay evidencia de autocorrelación (no se rechaza H0 al 5 %)")
+        filas_bg.append({"modelo": etiqueta, "Durbin_Watson": dw, "Breusch_Godfrey_rezagos": bg["nlags"],
+                         "Breusch_Godfrey_LM_estadistico": bg["lm_estadistico"],
+                         "Breusch_Godfrey_LM_p_valor": bg["lm_p_valor"],
+                         "Breusch_Godfrey_F_estadistico": bg["f_estadistico"],
+                         "Breusch_Godfrey_F_p_valor": bg["f_p_valor"],
+                         "conclusion_autocorrelacion_5%": conclusion})
+    guardar_tabla(pd.DataFrame(filas_bg).set_index("modelo").round(6), "tabla13_breusch_godfrey")
 
     # ------------------------- C. Sensibilidad al corte ------------------------
     tea_corte = float(datos["tea_hipotecaria_diaria"].iloc[-1])
